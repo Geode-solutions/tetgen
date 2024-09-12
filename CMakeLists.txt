@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.15)
 
 project(Tetgen)
 
@@ -8,7 +8,7 @@ set(CMAKE_INSTALL_RPATH "$ORIGIN")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
 
-add_library(tetgen STATIC tetgen.h tetgen.cxx predicates.cxx)
+add_library(tetgen STATIC include/tetgen.h src/tetgen.cxx src/predicates.cxx)
 set_target_properties(tetgen 
     PROPERTIES 
         COMPILE_DEFINITIONS TETLIBRARY
@@ -16,7 +16,7 @@ set_target_properties(tetgen
 )    
 target_include_directories(tetgen
     PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
@@ -35,7 +35,8 @@ export(TARGETS tetgen
     FILE ${PROJECT_BINARY_DIR}/${CMAKE_CONFIG_DESTINATION}/tetgen_target.cmake
 )
 
-install(FILES tetgen.h 
+install(
+    DIRECTORY ${PROJECT_SOURCE_DIR}/include/
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
