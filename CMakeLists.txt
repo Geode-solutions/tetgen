@@ -8,11 +8,16 @@ set(CMAKE_INSTALL_RPATH "$ORIGIN")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH ON)
 set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
 
-add_library(tetgen STATIC tetgen.cxx predicates.cxx)
+add_library(tetgen STATIC tetgen.h tetgen.cxx predicates.cxx)
 set_target_properties(tetgen 
     PROPERTIES 
-        PUBLIC_HEADER tetgen.h
         COMPILE_DEFINITIONS TETLIBRARY
+        POSITION_INDEPENDENT_CODE ON
+)    
+target_include_directories(tetgen
+    PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
 include(GNUInstallDirs)
