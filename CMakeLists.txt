@@ -10,17 +10,20 @@ set(CMAKE_BUILD_RPATH_USE_ORIGIN ON)
 
 add_library(tetgen STATIC include/tetgen.h src/tetgen.cxx src/predicates.cxx)
 set_target_properties(tetgen 
-    PROPERTIES 
-        COMPILE_DEFINITIONS TETLIBRARY
+    PROPERTIES
         POSITION_INDEPENDENT_CODE ON
-)    
+)
+target_compile_definitions(tetgen 
+    PUBLIC
+        TETLIBRARY
+)
+include(GNUInstallDirs)
 target_include_directories(tetgen
     PUBLIC
         $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-include(GNUInstallDirs)
 include(GenerateExportHeader)
 include(CMakePackageConfigHelpers)
 
