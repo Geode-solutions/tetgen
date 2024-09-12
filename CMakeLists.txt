@@ -35,6 +35,10 @@ export(TARGETS tetgen
     FILE ${PROJECT_BINARY_DIR}/${CMAKE_CONFIG_DESTINATION}/tetgen_target.cmake
 )
 
+install(FILES tetgen.h 
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
 install(TARGETS tetgen
     EXPORT tetgen
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
